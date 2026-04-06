@@ -1,32 +1,32 @@
 import { Etnia, Sexo } from "src/modules/relaciones/entities/relacione.entity";
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
-@Entity('estudiantes.estudiante')
+@Entity({ schema: 'estudiantes', name: 'estudiante' })
 export class Estudiante {
   @PrimaryGeneratedColumn('increment')
   id?: number;
 
   @Column({ type: 'varchar', nullable: false, length: 60 })
-  nombre: string;
+  nombres: string;
 
   @Column({ type: 'varchar', nullable: false, length: 60 })
   paterno: string;
 
-  @Column({ type: 'varchar', nullable: false, length: 60 })
+  @Column({ type: 'varchar', nullable: true, length: 60 })
   materno: string;
 
-  @OneToOne(() => Sexo)
+  @Column({ type: 'int4', nullable: false })
   sexo_id: number;
 
   @Column({ type: 'varchar', nullable: false, length: 60 })
   direccion: string;
 
-  @OneToOne(() => Etnia)
+  @Column({ type: 'int4', nullable: false })
   etnia_id: number;
 
-  @Column({ type: 'date', nullable: false })
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
-  @Column({ type: 'date', nullable: false })
-  update_at: Date;
+  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updated_at: Date;
 }

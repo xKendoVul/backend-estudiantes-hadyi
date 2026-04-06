@@ -23,5 +23,6 @@ export class EstudiantesController {
       data: estudiante,
       message: "Registro agregado con exito"
     }
+    return datos;
   }
 }

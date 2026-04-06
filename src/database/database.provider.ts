@@ -15,7 +15,8 @@ export const DatabaseProvider: DynamicModule =
       password: configService.get('PASSWORD'),
       database: configService.get('DATABASE'),
       entities: [],
-      synchronize: true,
+      autoLoadEntities: configService.get('AUTOLOADENTITIES'),
+      synchronize: false,
     }),
   });
 

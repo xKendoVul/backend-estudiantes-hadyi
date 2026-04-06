@@ -7,10 +7,10 @@ export class CreateEstudianteDto {
 
   @IsString()
   @IsNotEmpty()
-  nombre: string;
+  nombres: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   paterno: string;
 
   @IsString()
@@ -35,5 +35,5 @@ export class CreateEstudianteDto {
 
   @IsDate()
   @IsOptional()
-  update_at: Date;
+  updated_at: Date;
 }
