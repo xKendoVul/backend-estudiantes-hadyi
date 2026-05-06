@@ -1,26 +1,47 @@
-import { Injectable } from '@nestjs/common';
-import { CreateRelacioneDto } from './dto/create-relacione.dto';
-import { UpdateRelacioneDto } from './dto/update-relacione.dto';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Etnia, Sexo } from "./relacione.entity";
+import { Repository } from "typeorm";
+import { CreateEtniaDto, CreateSexoDto } from "./create-relacione.dto";
+
 
 @Injectable()
 export class RelacionesService {
-  create(createRelacioneDto: CreateRelacioneDto) {
-    return 'This action adds a new relacione';
+  constructor(
+    @InjectRepository(Sexo)
+    private readonly SexoRepo: Repository<Sexo>,
+    @InjectRepository(Etnia)
+    private readonly EtniaRepo: Repository<Etnia>
+  ) { }
+
+  async createSexo(sexoDto: CreateSexoDto) {
+    try {
+      const sexo = this.SexoRepo.create(sexoDto);
+      return await this.SexoRepo.save(sexo)
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 
-  findAll() {
-    return `This action returns all relaciones`;
+  async findAllSexos() {
+    return await this.SexoRepo.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} relacione`;
+  // ----------------------------------------
+
+  async createEtnia(etniaDto: CreateEtniaDto) {
+    try {
+      const etnia = this.EtniaRepo.create(etniaDto)
+      return await this.EtniaRepo.save(etnia)
+    } catch (error) {
+      console.log(error)
+      throw error;
+    }
   }
 
-  update(id: number, updateRelacioneDto: UpdateRelacioneDto) {
-    return `This action updates a #${id} relacione`;
+  async findAllEtnias() {
+    return await this.EtniaRepo.find();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} relacione`;
-  }
 }

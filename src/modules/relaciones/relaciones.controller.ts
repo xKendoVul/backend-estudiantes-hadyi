@@ -1,34 +1,53 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { RelacionesService } from './relaciones.service';
-import { CreateRelacioneDto } from './dto/create-relacione.dto';
-import { UpdateRelacioneDto } from './dto/update-relacione.dto';
+import { CreateSexoDto, CreateEtniaDto } from './create-relacione.dto';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 
-@Controller('relaciones')
-export class RelacionesController {
-  constructor(private readonly relacionesService: RelacionesService) {}
+@Controller('sexo')
+export class SexoController {
+  constructor(private readonly relacionesService: RelacionesService) { }
 
-  @Post()
-  create(@Body() createRelacioneDto: CreateRelacioneDto) {
-    return this.relacionesService.create(createRelacioneDto);
+  @MessagePattern({ cmd: "crear_sexo" })
+  async createSexo(@Payload() sexoDto: CreateSexoDto) {
+    const sexo = await this.relacionesService.createSexo(sexoDto)
+
+    const datos = {
+      data: sexo,
+      message: "Registro agregado con exito"
+    }
+    return datos
   }
 
-  @Get()
-  findAll() {
-    return this.relacionesService.findAll();
+  @MessagePattern({ cmd: "encontrar_sexos" })
+  async findAllSexos() {
+    const data = await this.relacionesService.findAllSexos()
+    return data
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.relacionesService.findOne(+id);
+}
+
+// -----------------------------------
+
+@Controller("etnia")
+export class EtniaController {
+  constructor(private readonly relacionesService: RelacionesService) { }
+
+  @MessagePattern({ cmd: "crear_etnia" })
+  async create(@Payload() etniaDto: CreateEtniaDto) {
+    const etnia = await this.relacionesService.createEtnia(etniaDto)
+
+    const datos = {
+      data: etnia,
+      message: "Registro agregado con exito"
+    }
+    return datos
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRelacioneDto: UpdateRelacioneDto) {
-    return this.relacionesService.update(+id, updateRelacioneDto);
+  @MessagePattern({ cmd: "encontrar_etnias" })
+  async findAll() {
+    const data = await this.relacionesService.findAllEtnias()
+    return data
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.relacionesService.remove(+id);
-  }
+
 }

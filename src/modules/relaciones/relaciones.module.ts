@@ -1,9 +1,14 @@
 import { Module } from '@nestjs/common';
 import { RelacionesService } from './relaciones.service';
-import { RelacionesController } from './relaciones.controller';
+import { SexoController, EtniaController } from './relaciones.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Etnia, Sexo } from './relacione.entity';
+
 
 @Module({
-  controllers: [RelacionesController],
+  imports: [TypeOrmModule.forFeature([Sexo, Etnia])],
+  controllers: [SexoController, EtniaController],
   providers: [RelacionesService],
+  exports: [RelacionesModule, TypeOrmModule]
 })
-export class RelacionesModule {}
+export class RelacionesModule { }
