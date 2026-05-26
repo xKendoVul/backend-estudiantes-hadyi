@@ -19,7 +19,7 @@ COPY --from=deps /usr/src/app/node_modules ./node_modules
 
 COPY . .
 
-# 3. Test 
+# 3. Test
 
 RUN npm run build
 
@@ -38,4 +38,4 @@ ENV NODE_ENV=production
 
 EXPOSE 3001
 
-CMD {"node", "dist/main.js"}
+CMD ["node", "dist/main.js"]
