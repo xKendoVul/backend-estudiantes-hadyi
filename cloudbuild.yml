@@ -1,19 +1,20 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: [
+    args:
+      [
         'build',
         '-t',
-        # '' <-- el nombre de la imagen de docker
+        'us-central1-docker.pkg.dev/microservices-academy/images-hadyi/backend-estudiantes',
         'f',
         'Dockerfile.prod',
         '--platform=linux/amd64',
         '.',
       ]
   - name: 'gcr.io/cloudbuilders/docker'
-    args: [
+    args:
+      [
         'push',
-        # <-- nombre de la imagen
-
+        'us-central1-docker.pkg.dev/microservices-academy/images-hadyi/backend-estudiantes',
       ]
 
 options:
