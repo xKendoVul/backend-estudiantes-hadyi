@@ -5,12 +5,12 @@ steps:
         'build',
         '-t',
         'us-central1-docker.pkg.dev/microservices-academy/images-hadyi/backend-estudiantes',
-        'f',
+        '-f',
         'Dockerfile.prod',
         '--platform=linux/amd64',
         '.',
       ]
-  - name: 'gcr.io/cloudbuilders/docker'
+  - name: 'gcr.io/cloud-builders/docker'
     args:
       [
         'push',
