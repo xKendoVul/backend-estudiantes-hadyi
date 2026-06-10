@@ -4,14 +4,15 @@ import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const logger = new Logger('main')
+  const logger = new Logger('main');
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
       transport: Transport.TCP,
       options: {
+        host: '0.0.0.0',
         port: Number(process.env.PORT),
-      }
+      },
     },
   );
 
@@ -23,7 +24,9 @@ async function bootstrap() {
   );
 
   await app.listen();
-  logger.log(`Microservicio de estudiantes corriendo en el puerto ${process.env.PORT}`)
+  logger.log(
+    `Microservicio de estudiantes corriendo en el puerto ${process.env.PORT}`,
+  );
 }
 
 //

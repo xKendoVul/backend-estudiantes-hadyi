@@ -4,6 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -31,6 +32,9 @@ export class Estudiante {
 
   @Column({ type: 'integer', nullable: false })
   etnia_id!: number;
+
+  @Column({ type: 'integer', nullable: true })
+  foto_perfil_id?: number;
 
   @ManyToOne(() => Etnia)
   @JoinColumn({ name: 'etnia_id', referencedColumnName: 'id' })
