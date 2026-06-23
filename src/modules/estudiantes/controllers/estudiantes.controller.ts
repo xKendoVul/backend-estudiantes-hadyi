@@ -51,6 +51,7 @@ export class EstudiantesController {
 
   @MessagePattern({ cmd: 'delete_student' })
   async delete(@Payload('id', ParseIntPipe) id: number) {
-    return this.estudianteService.delete(id);
+    await this.estudianteService.delete(id);
+    return { message: 'Estudiante eliminado con exito' };
   }
 }
