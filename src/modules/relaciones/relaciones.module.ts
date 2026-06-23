@@ -8,6 +8,5 @@ import { Etnia, Sexo } from './relacione.entity';
   imports: [TypeOrmModule.forFeature([Sexo, Etnia])],
   controllers: [SexoController, EtniaController],
   providers: [RelacionesService],
-  exports: [RelacionesModule, TypeOrmModule]
 })
-export class RelacionesModule { }
+export class RelacionesModule {}

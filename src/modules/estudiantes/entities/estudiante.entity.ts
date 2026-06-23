@@ -4,7 +4,6 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -25,7 +24,7 @@ export class Estudiante {
   materno?: string;
 
   @Column({ type: 'varchar', nullable: true, length: 200 })
-  direccion!: string;
+  direccion?: string;
 
   @Column({ type: 'integer', nullable: false })
   sexo_id!: number;
@@ -44,9 +43,9 @@ export class Estudiante {
   @JoinColumn({ name: 'sexo_id', referencedColumnName: 'id' })
   sexo!: Sexo;
 
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn({ type: 'timestamp' })
   created_at?: Date;
 
-  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn({ type: 'timestamp' })
   updated_at?: Date;
 }
